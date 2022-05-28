@@ -4,10 +4,111 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700;900&display=swap"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="css/style.css" />
     <title>JavaScript ToDo App</title>
   </head>
   <body>
-    <script src="js/main.js"></script>
+    <div class="container">
+      <header class="header">
+        <h1>task list</h1>
+        <button id="add-new-task-btn" class="btn-dark-blue">Add new</button>
+      </header>
+
+      <section class="form">
+        <form action="" id="form">
+          <label for="task-input">Title</label>
+          <input
+            type="text"
+            name="form-task"
+            id="task-input"
+            class="task-input"
+            placeholder="Title"
+          />
+
+          <label for="date-input">Date</label>
+          <input
+            type="date"
+            name="form-date"
+            id="date-input"
+            class="date-input"
+            placeholder="Date"
+            required
+          />
+
+          <p>Priority</p>
+          <div class="priority-box">
+            <label for="p1-input">
+              <input
+                type="radio"
+                name="form-priority"
+                value="1"
+                id="p1-input"
+              />
+              1
+            </label>
+            <label for="p2-input">
+              <input
+                type="radio"
+                name="form-priority"
+                value="2"
+                id="p2-input"
+              />
+              2
+            </label>
+            <label for="p3-input">
+              <input
+                type="radio"
+                name="form-priority"
+                value="3"
+                id="p3-input"
+              />
+              3
+            </label>
+            <label for="p4-input">
+              <input
+                type="radio"
+                name="form-priority"
+                value="4"
+                id="p4-input"
+              />
+              4
+            </label>
+            <label for="p5-input">
+              <input
+                type="radio"
+                name="form-priority"
+                value="5"
+                id="p5-input"
+              />
+              5
+            </label>
+          </div>
+
+          <label for="textarea-input">Task description</label>
+          <textarea
+            name="form-description"
+            cols="100"
+            rows="3"
+            id="textarea-input"
+            class="textarea-input"
+            placeholder="Task description"
+          ></textarea>
+
+          <div class="form-bottom">
+            <button id="form-submit-btn" class="form-submit-btn" type="submit">
+              Save
+            </button>
+            <div id="error-message" class="error-message"></div>
+          </div>
+        </form>
+      </section>
+    </div>
   </body>
 </html>
