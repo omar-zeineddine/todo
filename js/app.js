@@ -326,4 +326,34 @@ $(document).ready(function () {
   }
 
   filterDoneBtn.addEventListener("click", filterDone);
+
+  // show incomplete
+
+  function filterUndone() {
+    let taskArray = parseJsonFromLS();
+    let filteredArray = [];
+
+    taskArray.forEach((el) => {
+      if (!el.taskDone) {
+        filteredArray.push(el);
+      }
+    });
+    addArrayToHtml(filteredArray);
+    findAllButtons();
+    filterPriorityForm.reset();
+  }
+
+  filterUndoneBtn.addEventListener("click", filterUndone);
+
+  // showAll
+
+  function filtersReset() {
+    let taskArray = parseJsonFromLS();
+
+    addArrayToHtml(taskArray);
+    findAllButtons();
+    filterPriorityForm.reset();
+  }
+
+  filtersResetBtn.addEventListener("click", filtersReset);
 });
