@@ -283,4 +283,47 @@ $(document).ready(function () {
         taskDescriptionPanel.scrollHeight + "px";
     }
   }
+
+  // filter priorities
+
+  function filterPriority() {
+    let taskArray = parseJsonFromLS();
+    let priorityOption = this.value;
+    let filteredArray = [];
+
+    let allTasks = taskList.querySelectorAll("li");
+
+    if (priorityOption !== "all") {
+      taskArray.forEach((el) => {
+        if (el.taskPriority === priorityOption) {
+          filteredArray.push(el);
+        }
+      });
+    } else {
+      filteredArray = taskArray;
+    }
+
+    addArrayToHtml(filteredArray);
+    findAllButtons();
+  }
+
+  priorities.addEventListener("change", filterPriority);
+
+  // filters - show completed tasks
+
+  function filterDone() {
+    let taskArray = parseJsonFromLS();
+
+    let filteredArray = [];
+    taskArray.forEach((el) => {
+      if (el.taskDone) {
+        filteredArray.push(el);
+      }
+    });
+    addArrayToHtml(filteredArray);
+    findAllButtons();
+    filterPriorityForm.reset();
+  }
+
+  filterDoneBtn.addEventListener("click", filterDone);
 });
