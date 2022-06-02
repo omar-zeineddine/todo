@@ -154,4 +154,133 @@ $(document).ready(function () {
   }
 
   form.addEventListener("submit", formValidateAndSubmit);
+
+  // hide form after validating
+  function closeForm() {
+    accordionClose(formSection);
+    accordionHeader(formHeader);
+    changeBtnTxt(addNewTaskBtn);
+    changeBtnClass(addNewTaskBtn);
+  }
+
+  // update LS table
+  function addArrayToLS(arr) {
+    let arrayJSON = JSON.stringify(arr);
+    localStorage.setItem("todolist", arrayJSON);
+
+    getFromLS();
+  }
+
+  // create a new object
+  function createNewTaskObject(
+    addId,
+    addTask,
+    addDate,
+    addDescription,
+    addPriority
+  ) {
+    let newTaskObject = {
+      taskId: addId,
+      taskName: addTask,
+      taskDate: addDate,
+      taskPriority: addPriority,
+      taskAbout: addDescription,
+      taskDone: false,
+    };
+
+    let taskArray = parseJsonFromLS();
+
+    // add new array to LS
+    let newArrToLS = [];
+    newArrToLS = newArrToLS.concat(taskArray);
+    newArrToLS.push(newTaskObject);
+
+    addArrayToLS(newArrToLS);
+  }
+
+  // delete individual tasks
+
+  function deleteTask() {
+    let taskId =
+      this.parentElement.parentElement.parentElement.querySelector(".task-id");
+
+    // remove object from main array in LS
+    deleteTaskFromArray(taskId);
+  }
+
+  function findDeleteButtons() {
+    let deleteTaskButtons = document.querySelectorAll(".task-delete");
+    for (let i = 0; i < deleteTaskButtons.length; i++) {
+      deleteTaskButtons[i].addEventListener("click", deleteTask);
+    }
+  }
+
+  // remove object tag from id
+  function deleteTaskFromArray(id) {
+    let taskArray = parseJsonFromLS();
+
+    /* copy array from LS */
+    let newArrToLS = taskArray.slice();
+
+    for (let j = 0; j < newArrToLS.length; j++) {
+      if (newArrToLS[j].taskId === id.innerText) {
+        newArrToLS.splice(j, 1);
+
+        addArrayToLS(newArrToLS);
+      }
+    }
+  }
+
+  // mark complete buttons
+
+  function findCompleteTaskButtons() {
+    let completeTaskButtons = document.querySelectorAll(".task-complete");
+
+    for (let j = 0; j < completeTaskButtons.length; j++) {
+      completeTaskButtons[j].addEventListener("click", markAsCompleted);
+    }
+  }
+
+  function markAsCompleted() {
+    let taskId =
+      this.parentElement.parentElement.parentElement.querySelector(".task-id");
+    let taskArray = parseJsonFromLS();
+
+    let newArrToLS = taskArray.slice();
+
+    for (let i = 0; i < newArrToLS.length; i++) {
+      if (newArrToLS[i].taskId === taskId.innerText) {
+        newArrToLS[i].taskDone = !newArrToLS[i].taskDone;
+      }
+    }
+
+    // add updated table to LS
+    addArrayToLS(newArrToLS);
+  }
+
+  // task details button
+
+  function findShowDescriptionButtons() {
+    let showDescriptionButtons = document.querySelectorAll(".task-show");
+
+    for (let i = 0; i < showDescriptionButtons.length; i++) {
+      showDescriptionButtons[i].addEventListener("click", showDescriptionPanel);
+    }
+  }
+
+  function showDescriptionPanel() {
+    let taskDescriptionPanel =
+      this.parentElement.parentElement.parentElement.querySelector(
+        ".task-description-panel"
+      );
+
+    taskDescriptionPanel.classList.toggle("accordion-list-active");
+
+    if (taskDescriptionPanel.style.maxHeight) {
+      taskDescriptionPanel.style.maxHeight = null;
+    } else {
+      taskDescriptionPanel.style.maxHeight =
+        taskDescriptionPanel.scrollHeight + "px";
+    }
+  }
 });
