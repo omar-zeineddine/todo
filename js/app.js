@@ -356,4 +356,70 @@ $(document).ready(function () {
   }
 
   filtersResetBtn.addEventListener("click", filtersReset);
+
+  // delete all tasks
+
+  function removeAllTasks() {
+    let newArrToLS = [];
+    addArrayToLS(newArrToLS);
+  }
+
+  removeAllBtn.addEventListener("click", removeAllTasks);
+
+  // delete completed tasks
+
+  function removeFinishedTasks() {
+    let taskArray = parseJsonFromLS();
+    let newArrToLS = [];
+
+    for (let i = 0; i < taskArray.length; i++) {
+      if (!taskArray[i].taskDone) {
+        newArrToLS.push(taskArray[i]);
+      }
+    }
+    addArrayToLS(newArrToLS);
+  }
+
+  removeFinishedBtn.addEventListener("click", removeFinishedTasks);
+
+  function addNewTask() {
+    accordion(formSection);
+    accordionHeader(formHeader);
+    changeBtnTxt(addNewTaskBtn);
+    changeBtnClass(addNewTaskBtn);
+  }
+
+  addNewTaskBtn.addEventListener("click", addNewTask);
+
+  // style form
+  function accordion(thisSection) {
+    thisSection.classList.toggle("accordion");
+
+    thisSection.style.maxHeight = thisSection.style.maxHeight
+      ? null
+      : thisSection.scrollHeight + "px";
+  }
+
+  // style header
+  function accordionHeader(thisHeader) {
+    thisHeader.classList.toggle("header-accordion");
+  }
+
+  function changeBtnTxt(btnName) {
+    btnName.innerText =
+      btnName.innerText === "ADD NEW" ? "Hide form" : "Add new";
+  }
+
+  function changeBtnClass(btnName) {
+    btnName.classList.toggle("btn-dark-blue");
+    btnName.classList.toggle("btn-light-blue");
+  }
+
+  /* close form after submit and validate */
+  function accordionClose(thisSection) {
+    thisSection.classList.toggle("accordion");
+    thisSection.style.maxHeight = null;
+  }
+
+  getFromLS();
 });
