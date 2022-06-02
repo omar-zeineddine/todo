@@ -35,4 +35,20 @@ $(document).ready(function () {
     addArrayToHtml(taskArray);
     findAllButtons();
   }
+
+  // refresh events on all buttons
+  function findAllButtons() {
+    findShowDescriptionButtons();
+    findCompleteTaskButtons();
+    findDeleteButtons();
+  }
+
+  // pass object array to an html list
+  function addArrayToHtml(arr) {
+    // clear html before reloading list
+    taskList.innerHTML = "";
+    for (let i = 0; i < arr.length; i++) {
+      addObjectToHtml(arr[i]);
+    }
+  }
 });
